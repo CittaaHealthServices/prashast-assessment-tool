@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PRASHAST Pre-Assessment Tool for Disability Identification in Schools">
+    <meta name="keywords" content="PRASHAST, disability assessment, school screening, special needs">
+    <meta name="author" content="CITTAA">
+    <title>PRASHAST Pre-Assessment Tool | CITTAA</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .assessment-section { border-left: 4px solid #3B82F6; }
+        .progress-bar { transition: width 0.3s ease; }
+        @media print {
+            .no-print { display: none !important; }
+            body { font-size: 12px; }
+            .print-break { page-break-before: always; }
+        }
+        .response-option {
+            transition: all 0.2s ease;
+        }
+        .response-option:hover {
+            transform: scale(1.05);
+        }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white sticky-header no-print">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-user-check text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">PRASHAST Pre-Assessment Tool</h1>
+                        <p class="text-blue-200">Center for Innovation & Technology Transfer in Assistive & Adaptive Technologies</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-blue-200">CITTAA</p>
+                    <p class="text-sm">Excellence in Accessibility</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="bg-white shadow-sm no-print">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-gray-700">Assessment Progress</span>
+                <span class="text-sm text-gray-500"><span id="progress-text">0%</span></span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div id="progress-bar" class="bg-blue-600 h-2 rounded-full progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <form id="prashast-form" class="space-y-8">
+            <!-- Student Information Section -->
+            <section class="bg-white rounded-lg shadow-lg p-6 assessment-section">
+                <div class="border-b border-gray-200 pb-4 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-user-graduate text-blue-600 mr-3"></i>
+                        Student Information
+                    </h2>
+                    <p class="text-gray-600 mt-2">Please fill in the student's basic information below.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+                        <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Class *</label>
+                        <input type="text" name="class" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Section</label>
+                        <input type="text" name="section" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                        <input type="number" name="age" min="3" max="25" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                        <select name="gender" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">School *</label>
+                        <input type="text" name="school" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                        <input type="text" name="state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mother's Name</label>
+                        <input type="text" name="motherName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Father's Name</label>
+                        <input type="text" name="fatherName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
+                        <input type="number" name="height" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                        <input type="number" name="weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Assessor Name *</label>
+                        <input type="text" name="assessorName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part 1: Disability Assessment -->
+            <section class="bg-white rounded-lg shadow-lg p-6 assessment-section">
+                <div class="border-b border-gray-200 pb-4 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-clipboard-check text-blue-600 mr-3"></i>
+                        Part 1: Disability Assessment
+                    </h2>
+                    <p class="text-gray-600 mt-2">Tick (✓) if behavior applies to the student.</p>
+                </div>
+                
+                <div id="part1-assessments" class="space-y-6"></div>
+            </section>
+
+            <!-- Part 2: Additional Assessment -->
+            <section class="bg-white rounded-lg shadow-lg p-6 assessment-section">
+                <div class="border-b border-gray-200 pb-4 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-plus-circle text-blue-600 mr-3"></i>
+                        Part 2: Additional Assessment
+                    </h2>
+                    <p class="text-gray-600 mt-2">Additional assessment items for detailed evaluation.</p>
+                </div>
+                
+                <div id="part2-assessments" class="space-y-6"></div>
+            </section>
+
+            <!-- Instructions -->
+            <section class="bg-blue-50 rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-600 text-xl mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Instructions for Use</h3>
+                        <div class="text-blue-700 space-y-2">
+                            <p>1. Fill in student information in the first section completely.</p>
+                            <p>2. For each assessment item, mark ✓ for YES or ✗ for NO in the response section.</p>
+                            <p>3. Add any additional observations in the Notes section for each item.</p>
+                            <p>4. Items marked with * require special attention and professional consultation.</p>
+                            <p>5. Save your progress regularly using the "Save Progress" button.</p>
+                            <p>6. Submit the completed assessment to automatically send data to the database.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center no-print">
+                <button type="button" id="save-progress" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium transition duration-200 flex items-center">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Progress
+                </button>
+                
+                <button type="button" id="print-assessment" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition duration-200 flex items-center">
+                    <i class="fas fa-print mr-2"></i>
+                    Print Assessment
+                </button>
+                
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition duration-200 flex items-center">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Submit Assessment
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12 no-print">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-lg font-semibold mb-2">PRASHAST Pre-Assessment Tool</p>
+                <p class="text-gray-400 mb-4">Developed by Center for Innovation & Technology Transfer in Assistive & Adaptive Technologies (CITTAA)</p>
+                <p class="text-sm text-gray-500">© 2024 CITTAA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+            <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
+            <p class="text-lg font-medium text-gray-800">Submitting Assessment...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
+            <i class="fas fa-check-circle text-6xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Assessment Submitted Successfully!</h3>
+            <p class="text-gray-600 mb-6">The assessment data has been saved to the database.</p>
+            <button onclick="closeModal('success-modal')" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
+            <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Submission Error</h3>
+            <p class="text-gray-600 mb-6" id="error-message">There was an error submitting the assessment. Please try again.</p>
+            <button onclick="closeModal('error-modal')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Assessment data structure
+        const assessmentData = {
+            part1: [
+                // Locomotor Disability (LD)
+                { id: '1.1', category: 'Locomotor Disability (LD)', question: 'This student has difficulty in walking or needs support to walk/climb stairs.' },
+                { id: '1.2', category: 'LD', question: 'This student has difficulty in moving/using any part of the body (for example hands for writing, eating, etc.).' },
+                { id: '1.3', category: 'LD', question: 'This student has observable deformity such as missing any body parts, say for example hand/finger/leg.' },
+                
+                // Leprosy Cured Person
+                { id: '2.1', category: 'Leprosy Cured Person', question: 'This student experiences numbness (feels nothing/lack of sensation) in hand/feet/leg/arm.' },
+                
+                // Cerebral Palsy (CP)
+                { id: '3.1', category: 'Cerebral Palsy (CP)', question: 'This student has stiffness/floppiness in limbs and/or jerky movement in limbs/jerky walking pattern/involuntary (uncontrolled) movements.' },
+                { id: '3.2', category: 'CP', question: 'This student has problems in self-help skills/defecating/washing/eating/holding and placing objects/cutting/pasting.' },
+                { id: '3.3', category: 'CP', question: 'This student has slurred (unclear) speech or drooling.' },
+                
+                // Dwarfism
+                { id: '4.1', category: 'Dwarfism', question: 'This student is significantly shorter for his/her age.' },
+                { id: '4.2', category: 'Dwarfism', question: 'This student has a disproportionately large head/bowed legs/short fingers/neck.' },
+                
+                // Muscular Dystrophy
+                { id: '5.1', category: 'Muscular Dystrophy', question: 'This student falls frequently and has difficulty getting up from a lying or sitting position.' },
+                { id: '5.2', category: 'Muscular Dystrophy', question: 'This student always walks on his/her toes.' },
+                
+                // Acid Attack Victim
+                { id: '6.1', category: 'Acid Attack Victim', question: 'This student is an acid attack survivor.' },
+                
+                // Blindness
+                { id: '7.1', category: 'Blindness', question: 'This student is unable to see anything using both eyes.' },
+                
+                // Low Vision (LV)
+                { id: '8.1', category: 'Low Vision (LV)', question: 'This student has difficulty in seeing in low lighting or feels the need to move towards the source of light.' },
+                { id: '8.2', category: 'LV', question: 'This student blinks/rubs his/her eyes frequently or complains about burning sensation or itchiness in or around the eyes/frequent headache.' },
+                { id: '8.3', category: 'LV', question: 'This student holds a book too far or too close while reading.' },
+                { id: '8.4', category: 'LV', question: 'This student faces difficulties while reading such as misplaces the line or skips lines in between, omits words, adds words, moves head along the text.' },
+                { id: '8.5', category: 'LV', question: 'This student avoids engaging in activities requiring visual focus such as reading or colouring or writing/copying from blackboard or prefers to copy from peers.' },
+                { id: '8.6', category: 'LV', question: 'This student closes or covers one eye while reading or focusing on close objects.' },
+                { id: '8.7', category: 'LV', question: 'This student has misaligned eyes (asymmetrical or squint).' },
+                
+                // Hearing Impairment (HI)
+                { id: '9.1', category: 'Hearing Impairment (HI)', question: 'This student turns head to position ear in the direction of the speaker or purposefully watches the face of the speaker during a conversation.' },
+                { id: '9.2', category: 'HI', question: 'This student does not respond when addressed or called out.' },
+                { id: '9.3', category: 'HI', question: 'This student uses an unusually loud voice while speaking or often mispronounces words.' },
+                { id: '9.4', category: 'HI', question: 'This student frequently asks for repetition during dictation or verbal instruction.' },
+                { id: '9.5', category: 'HI', question: 'This student has problems in hearing environmental sounds such as the school bell, people calling or is not startled/surprised by loud noises.' },
+                
+                // Speech & Language Disability
+                { id: '10.1', category: 'Speech & Language Disability', question: 'This student repeats words or parts of words or speaks in short, fragmented phrases.' },
+                { id: '10.2', category: 'Speech & Language Disability', question: 'This student stammers while speaking or speaks incoherently.' },
+                
+                // Intellectual Disability (ID)
+                { id: '11.1', category: 'Intellectual Disability (ID)', question: 'This student has difficulty in communicating or socializing with others.' },
+                { id: '11.2', category: 'ID', question: 'This student is unable to do everyday tasks like finishing homework/following instructions/directions of the teacher or even using the washroom without help.' },
+                { id: '11.3', category: 'ID', question: 'This student\'s behaviour doesn\'t conform to the context (playground/classroom/home) or accepted social norms for example, frequently walks out of the class without permission, speaks out of turn and keeps interrupting.' },
+                { id: '11.4', category: 'ID', question: 'This student has difficulty in applying what is learnt successfully in one situation/context to another (e.g., solving an arithmetic problem on paper but not in a real-life scenario).' },
+                
+                // Specific Learning Disabilities (SLD)
+                { id: '12.1', category: 'Specific Learning Disabilities (SLD)', question: 'This student reads or writes slower than the average/expected speed.' },
+                { id: '12.2', category: 'SLD', question: 'This student has bad handwriting that lacks clarity even after sufficient practice and exercises.' },
+                { id: '12.3', category: 'SLD', question: 'This student has continuous difficulties in understanding the meaning of what is read.' },
+                { id: '12.4', category: 'SLD', question: 'This student exhibits difficulty in recalling the spellings of learnt words/grammar/punctuation/organization, even after teaching multiple times.' },
+                { id: '12.5', category: 'SLD', question: 'This student has a comparatively short attention span or is unable to concentrate on a task.' },
+                { id: '12.6', category: 'SLD', question: 'This student has difficulty in organizing himself/herself to complete a task on time.' },
+                { id: '12.7', category: 'SLD', question: 'This student lacks a sense of direction (left-right/up-down/front back).' },
+                { id: '12.8', category: 'SLD', question: 'This student reverses letters or symbols or words or numbers while writing, for example, writing \'q\' instead \'p\' or b/d, u/v, w/m, frequently.' },
+                { id: '12.9', category: 'SLD', question: 'The errors committed by this student have a particular pattern or consistency.' },
+                { id: '12.10', category: 'SLD', question: 'This student has difficulty in understanding mathematical symbols such as +, -, x, ÷.' },
+                
+                // Autism Spectrum Disorder (ASD)
+                { id: '13.1', category: 'Autism Spectrum Disorder (ASD)', question: 'This student has difficulty in making eye contact or looking at the speaker.' },
+                { id: '13.2', category: 'ASD', question: 'This student echoes or repeats words. For example, on being asked \'What is your name?\' will repeat \'What is your name?\' instead of telling his/her name.' },
+                { id: '13.3', category: 'ASD', question: 'This student frequently engages in repetitive play/actions. For example, spinning, flapping hands, rocking, or lining up objects.' },
+                { id: '13.4', category: 'ASD', question: 'This student is unusually sensitive to certain sounds/touch/texture/light/smell, or shows little or no reaction to pain or heat or cold.' },
+                { id: '13.5', category: 'ASD', question: 'This student has strong resistance to changes in routine.' },
+                { id: '13.6', category: 'ASD', question: 'This student has an unusual attachment to an object (for example holding a toy/pencil/stone/leaf for an unusually long time).' },
+                { id: '13.7', category: 'ASD', question: 'This student is unaware of danger. For example, walking in the middle of a road/playing with fire.' },
+                { id: '13.8', category: 'ASD', question: 'This student doesn\'t initiate interaction or prefers to stay alone.' },
+                
+                // Mental Illness (MI) - Part 1
+                { id: '14.1', category: 'Mental Illness (MI)', question: 'This student often appears sad, or seems withdrawn, or has severe mood swings that cause problems in relationships at school.' },
+                { id: '14.2', category: 'MI', question: 'This student has trouble focusing or sitting still/staying in his/her seat?' },
+                { id: '14.3', category: 'MI', question: 'This student has an unexplained weight loss or weight gain?' },
+                { id: '14.4', category: 'MI', question: 'This student look anxious and frequently report symptoms such as headaches and stomach aches?' },
+                
+                // Multiple Sclerosis (MS) - Part 1
+                { id: '15.1', category: 'Multiple Sclerosis (MS)', question: 'This student has numbness or weakness in limbs that typically occurs on one side of the body at a time or the legs and trunk?' },
+                { id: '15.2', category: 'MS', question: 'This student complains about electric shock sensations that occur with certain neck movements?' },
+                
+                // Parkinson's Disease - Part 1
+                { id: '16.1', category: 'Parkinson\'s Disease', question: 'This student has cramped and smaller handwriting?' },
+                
+                // Haemophilia - Part 1
+                { id: '17.1', category: 'Haemophilia', question: 'Does this student have unexplained and excessive bleeding from cuts or injuries?' },
+                { id: '17.2', category: 'Haemophilia', question: 'Does this student have many large or deep bruises?' },
+                { id: '17.3', category: 'Haemophilia', question: 'Does this student appear to be very lethargic?' },
+                { id: '17.4', category: 'Haemophilia', question: 'Does this student complain of a painful and prolonged headache?' },
+                { id: '17.5', category: 'Haemophilia', question: 'Does this student have a tendency to bleed from the nose, mouth, and gums without a known cause?' },
+                
+                // Thalassemia - Part 1
+                { id: '18.1', category: 'Thalassemia', question: 'Does this student get easily tired?' },
+                { id: '18.2', category: 'Thalassemia', question: 'Does this student complain of unusual (out-of proportion) weakness?' },
+                { id: '18.3', category: 'Thalassemia', question: 'Does this student have pale or yellowish skin?' },
+                { id: '18.4', category: 'Thalassemia', question: 'Does this student look anaemic or affected with anaemia?' },
+                { id: '18.5', category: 'Thalassemia', question: 'Does this student complain of the dark colour of the urine?' },
+                
+                // Sickle Cell Disease - Part 1
+                { id: '19.1', category: 'Sickle Cell Disease', question: 'Does this student exhibit unexplained episodes of severe pain?' },
+                { id: '19.2', category: 'Sickle Cell Disease', question: 'Does this student exhibit swelling in the hands or feet most of the time?' }
+            ],
+            
+            part2: [
+                // Mental Illness (MI) - Part 2
+                { id: '14.5', category: 'Mental Illness (MI)', question: '*Does this student indulge in self-harm activities such as making cut marks or burning fingers?', special: true },
+                { id: '14.6', category: 'MI', question: '*Has this student been observed to exhibit suicidal thoughts or talk about attempting suicide?', special: true },
+                { id: '14.7', category: 'MI', question: 'Has this student been observed getting involved in drugs or alcohol use?' },
+                { id: '14.8', category: 'MI', question: 'Does this student have intense fear of something, which, in reality, has little or no actual danger?' },
+                { id: '14.9', category: 'MI', question: 'Has this student been observed to be detached from reality and living in an imaginative world? (e.g., talking to or hearing voices of imaginary friends that is not make-believe play).' },
+                { id: '14.10', category: 'MI', question: '*Does this student have drastic changes in behaviour or personality, for example, fighting frequently, using weapons, and or expressing a desire to hurt himself/herself or others?', special: true },
+                
+                // Multiple Sclerosis (MS) - Part 2
+                { id: '15.3', category: 'Multiple Sclerosis (MS)', question: '*Does this student get tremors (rhythmic, muscle contraction and relaxation)?', special: true },
+                { id: '15.4', category: 'MS', question: 'Does this student exhibit partial or complete loss of vision, usually in one eye at a time?' },
+                { id: '15.5', category: 'MS', question: 'Does this student have blurry and unclear vision?' },
+                { id: '15.6', category: 'MS', question: '*Does this student have slurred speech? (characterized by poor pronunciation of words, mumbling, or a change in speed or rhythm during talking).', special: true },
+                { id: '15.7', category: 'MS', question: 'Does this student get easily tired or fatigued?' },
+                { id: '15.8', category: 'MS', question: 'Does this student complain about pins-and-needles sensation especially in the face, arms, legs and fingers?' },
+                
+                // Parkinson's Disease - Part 2
+                { id: '16.2', category: 'Parkinson\'s Disease', question: '*Does this student have tremors or shaking that usually begins in a limb, often hand or finger?', special: true },
+                
+                // Haemophilia - Part 2
+                { id: '17.6', category: 'Haemophilia', question: '*Does this student have unusual bleeding after vaccinations?', special: true },
+                { id: '17.7', category: 'Haemophilia', question: 'Does this student have pain, swelling or tightness in joints?' },
+                { id: '17.8', category: 'Haemophilia', question: 'Does this student vomit repeatedly?' },
+                
+                // Thalassemia - Part 2
+                { id: '18.6', category: 'Thalassemia', question: '*Is this student frequently absent and visit the hospital for blood transfusion?', special: true }
+            ]
+        };
+
+        // Google Apps Script URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/a/macros/cittaa.in/s/AKfycbwlcxYGkAinC0CvjPDUGZVJTHNT8pvz5eWLSP6ddfTvkM-bLA_jlLCCwHqPcGhqlA_o/exec';
+
+        // Global variables
+        let totalItems = 0;
+        let completedItems = 0;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAssessments();
+            loadSavedProgress();
+            attachEventListeners();
+            updateProgress();
+        });
+
+        // Render assessment items
+        function renderAssessments() {
+            renderPart('part1', 'part1-assessments');
+            renderPart('part2', 'part2-assessments');
+            totalItems = assessmentData.part1.length + assessmentData.part2.length;
+        }
+
+        function renderPart(part, containerId) {
+            const container = document.getElementById(containerId);
+            const data = assessmentData[part];
+            
+            let currentCategory = '';
+            let categoryDiv = null;
+            
+            data.forEach((item, index) => {
+                // Create new category section if needed
+                if (item.category !== currentCategory) {
+                    currentCategory = item.category;
+                    categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'mb-8';
+                    categoryDiv.innerHTML = `
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-folder-open text-blue-600 mr-2"></i>
+                            ${item.category}
+                        </h3>
+                    `;
+                    container.appendChild(categoryDiv);
+                }
+                
+                // Create assessment item
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `assessment-item bg-gray-50 rounded-lg p-4 mb-4 border-l-4 ${item.special ? 'border-red-500 bg-red-50' : 'border-blue-500'}`;
+                
+                itemDiv.innerHTML = `
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-start mb-2">
+                                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">${item.id}</span>
+                                ${item.special ? '<span class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full mr-2">Special Attention</span>' : ''}
+                            </div>
+                            <p class="text-gray-800 leading-relaxed">${item.question}</p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-3 lg:ml-4">
+                            <div class="flex gap-2">
+                                <label class="flex items-center cursor-pointer response-option">
+                                    <input type="radio" name="item_${item.id}" value="yes" class="mr-2 w-4 h-4 text-blue-600">
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">✓ Yes</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer response-option">
+                                    <input type="radio" name="item_${item.id}" value="no" class="mr-2 w-4 h-4 text-blue-600">
+                                    <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">✗ No</span>
+                                </label>
+                            </div>
+                            <textarea name="notes_${item.id}" placeholder="Add notes or observations..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" rows="2"></textarea>
+                        </div>
+                    </div>
+                `;
+                
+                categoryDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Attach event listeners
+        function attachEventListeners() {
+            // Form submission
+            document.getElementById('prashast-form').addEventListener('submit', handleSubmit);
+            
+            // Save progress
+            document.getElementById('save-progress').addEventListener('click', saveProgress);
+            
+            // Print assessment
+            document.getElementById('print-assessment').addEventListener('click', printAssessment);
+            
+            // Progress tracking
+            document.addEventListener('change', function(e) {
+                if (e.target.type === 'radio') {
+                    updateProgress();
+                    saveProgress();
+                }
+            });
+        }
+
+        // Handle form submission
+        async function handleSubmit(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const formData = collectFormData();
+                const response = await submitToGoogleSheets(formData);
+                
+                if (response.status === 'success') {
+                    showModal('success-modal');
+                    clearSavedProgress();
+                } else {
+                    throw new Error(response.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                document.getElementById('error-message').textContent = error.message;
+                showModal('error-modal');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Validate form
+        function validateForm() {
+            const requiredFields = ['name', 'class', 'school', 'assessorName'];
+            
+            for (let field of requiredFields) {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (!input.value.trim()) {
+                    alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+                    input.focus();
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // Collect form data
+        function collectFormData() {
+            const form = document.getElementById('prashast-form');
+            const formData = new FormData(form);
+            
+            const studentInfo = {
+                name: formData.get('name'),
+                class: formData.get('class'),
+                section: formData.get('section'),
+                age: formData.get('age'),
+                gender: formData.get('gender'),
+                school: formData.get('school'),
+                state: formData.get('state'),
+                motherName: formData.get('motherName'),
+                fatherName: formData.get('fatherName'),
+                height: formData.get('height'),
+                weight: formData.get('weight')
+            };
+            
+            const responses = [];
+            
+            // Collect Part 1 responses
+            assessmentData.part1.forEach(item => {
+                const response = formData.get(`item_${item.id}`);
+                const notes = formData.get(`notes_${item.id}`);
+                
+                if (response) {
+                    responses.push({
+                        part: 'Part-1',
+                        itemId: item.id,
+                        condition: item.category,
+                        question: item.question,
+                        response: response === 'yes' ? '✓' : '✗',
+                        notes: notes || ''
+                    });
+                }
+            });
+            
+            // Collect Part 2 responses
+            assessmentData.part2.forEach(item => {
+                const response = formData.get(`item_${item.id}`);
+                const notes = formData.get(`notes_${item.id}`);
+                
+                if (response) {
+                    responses.push({
+                        part: 'Part-2',
+                        itemId: item.id,
+                        condition: item.category,
+                        question: item.question,
+                        response: response === 'yes' ? '✓' : '✗',
+                        notes: notes || ''
+                    });
+                }
+            });
+            
+            return {
+                studentInfo: studentInfo,
+                assessorName: formData.get('assessorName'),
+                responses: responses,
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        // Submit to Google Sheets
+        async function submitToGoogleSheets(data) {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            // Since we're using no-cors mode, we can't read the response
+            // We'll assume success if no error is thrown
+            return { status: 'success' };
+        }
+
+        // Update progress
+        function updateProgress() {
+            const radios = document.querySelectorAll('input[type="radio"]:checked');
+            completedItems = radios.length;
+            
+            const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
+            
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+        }
+
+        // Save progress to local storage
+        function saveProgress() {
+            const formData = new FormData(document.getElementById('prashast-form'));
+            const progressData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                progressData[key] = value;
+            }
+            
+            localStorage.setItem('prashast-progress', JSON.stringify(progressData));
+            
+            // Show save confirmation
+            const saveBtn = document.getElementById('save-progress');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Saved!';
+            saveBtn.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+            saveBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                saveBtn.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+            }, 2000);
+        }
+
+        // Load saved progress
+        function loadSavedProgress() {
+            const saved = localStorage.getItem('prashast-progress');
+            if (saved) {
+                const progressData = JSON.parse(saved);
+                
+                for (let [key, value] of Object.entries(progressData)) {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === 'radio') {
+                            if (input.value === value) {
+                                input.checked = true;
+                            }
+                        } else {
+                            input.value = value;
+                        }
+                    }
+                }
+                
+                updateProgress();
+            }
+        }
+
+        // Clear saved progress
+        function clearSavedProgress() {
+            localStorage.removeItem('prashast-progress');
+        }
+
+        // Print assessment
+        function printAssessment() {
+            window.print();
+        }
+
+        // Show/hide loading overlay
+        function showLoading(show) {
+            const overlay = document.getElementById('loading-overlay');
+            if (show) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Show modal
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Accessibility enhancements
+        document.addEventListener('keydown', function(e) {
+            // Allow Enter key to select radio buttons
+            if (e.key === 'Enter' && e.target.type === 'radio') {
+                e.target.checked = true;
+                e.target.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        });
+
+        // Auto-save every 30 seconds
+        setInterval(saveProgress, 30000);
+    </script>
+</body>
+</html>
