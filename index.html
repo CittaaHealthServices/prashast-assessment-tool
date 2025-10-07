@@ -3,643 +3,1654 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRASHAST Pre-Assessment Tool - Complete Mapping</title>
+    <title>PRASHAST Pre-Assessment Tool</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        .gradient-bg {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin: 20px 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+            margin: 0;
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9ff;
+            border-left: 5px solid #667eea;
+            break-inside: avoid;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        
+        .section h3 {
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        
+        .form-group {
+            margin: 15px 0;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .form-col {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
         .assessment-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            break-inside: avoid;
+        }
+        
+        .assessment-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+        
+        .item-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 15px;
+            min-width: 45px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
         }
-        .assessment-item:hover {
+        
+        .custom-checkbox.checked {
+            background: #667eea;
+            color: white;
+        }
+        
+        .checkbox-label {
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        input[type="checkbox"] {
+            display: none;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            break-inside: avoid;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
-        .section-header {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
+        
+        .status-message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
         .progress-bar {
-            transition: width 0.5s ease;
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
         }
-        .form-section {
-            border-left: 4px solid #4f46e5;
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .assessment-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .item-number {
+                margin: 0 0 10px 0;
+                align-self: center;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 20px;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="gradient-bg text-white py-6 shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <i class="fas fa-user-md text-3xl"></i>
-                    <div>
-                        <h1 class="text-3xl font-bold">PRASHAST Pre-Assessment Tool</h1>
-                        <p class="text-blue-100">Comprehensive Disability Assessment Framework</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="text-sm">CITTAA Health Services</p>
-                    <p class="text-xs text-blue-100">Complete Assessment Mapping</p>
-                </div>
-            </div>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-clipboard-list mr-3"></i>PRASHAST</h1>
+            <p>Pre-Assessment Tool for Students with Disabilities</p>
         </div>
-    </header>
 
-    <!-- Progress Bar -->
-    <div class="bg-white shadow-sm border-b">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-sm font-medium text-gray-700">Assessment Progress</span>
-                <span class="text-sm text-gray-600"><span id="progress-count">0</span>/85 items completed</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-                <div id="progress-bar" class="progress-bar bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" style="width: 0%"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container mx-auto px-4 py-8">
-        <form id="prashast-form" class="space-y-8">
+        <form id="assessmentForm">
             <!-- Student Information Section -->
-            <div class="bg-white rounded-xl shadow-lg p-6 form-section">
-                <div class="section-header text-white p-4 rounded-t-lg -mx-6 -mt-6 mb-6">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-user-circle mr-3"></i>
-                        Student Information
-                    </h2>
-                    <p class="text-blue-100 mt-1">Complete all student details below</p>
+            <div class="section">
+                <h2><i class="fas fa-user mr-2"></i>Student Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="student_name">Student Name *</label>
+                        <input type="text" id="student_name" name="student_name" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="class">Class *</label>
+                        <select id="class" name="class" required>
+                            <option value="">Select Class</option>
+                            <option value="1">Class 1</option>
+                            <option value="2">Class 2</option>
+                            <option value="3">Class 3</option>
+                            <option value="4">Class 4</option>
+                            <option value="5">Class 5</option>
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                        </select>
+                    </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Student Name *</label>
-                        <input type="text" id="student-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="section">Section</label>
+                        <input type="text" id="section" name="section" placeholder="e.g., A, B, C">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Class *</label>
-                        <input type="text" id="student-class" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="form-col">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="5" max="20">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Section *</label>
-                        <input type="text" id="student-section" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Age *</label>
-                        <input type="number" id="student-age" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Gender *</label>
-                        <select id="student-gender" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">School *</label>
-                        <input type="text" id="student-school" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="form-col">
+                        <label for="school">School Name *</label>
+                        <input type="text" id="school" name="school" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">State *</label>
-                        <input type="text" id="student-state" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Mother's Name</label>
-                        <input type="text" id="mother-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="form-col">
+                        <label for="mother_name">Mother's Name</label>
+                        <input type="text" id="mother_name" name="mother_name">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Father's Name</label>
-                        <input type="text" id="father-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="father_name">Father's Name</label>
+                        <input type="text" id="father_name" name="father_name">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
-                        <input type="number" id="student-height" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="form-col">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" name="height" min="50" max="200">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
-                        <input type="number" id="student-weight" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" name="weight" min="10" max="100">
                     </div>
                 </div>
             </div>
 
             <!-- Part 1: Disability Assessment -->
-            <div class="bg-white rounded-xl shadow-lg p-6 form-section">
-                <div class="section-header text-white p-4 rounded-t-lg -mx-6 -mt-6 mb-6">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-clipboard-check mr-3"></i>
-                        Part 1: Disability Assessment
-                    </h2>
-                    <p class="text-blue-100 mt-1">Tick (✓) if behavior applies</p>
+            <div class="section">
+                <h2><i class="fas fa-chart-bar mr-2"></i>Part 1: Disability Assessment</h2>
+                <p><strong>Instructions:</strong> Tick (✓) if the behavior applies to this student</p>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                 </div>
 
-                <div id="part1-assessments" class="space-y-6">
-                    <!-- Assessment items will be generated by JavaScript -->
+                <!-- Locomotor Disability (LD) -->
+                <h3><i class="fas fa-walking mr-2"></i>Locomotor Disability (LD)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">1.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in walking or needs support to walk/climb stairs.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LD_1_1" name="LD_1_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LD_1_1')"></div>
+                            <label class="checkbox-label" for="LD_1_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">1.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in moving/using any part of the body (for example hands for writing, eating, etc.).</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LD_1_2" name="LD_1_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LD_1_2')"></div>
+                            <label class="checkbox-label" for="LD_1_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">1.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has observable deformity such as missing any body parts, say for example hand/finger/leg.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LD_1_3" name="LD_1_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LD_1_3')"></div>
+                            <label class="checkbox-label" for="LD_1_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leprosy Cured Person -->
+                <h3><i class="fas fa-hand-paper mr-2"></i>Leprosy Cured Person</h3>
+                <div class="assessment-item">
+                    <div class="item-number">2.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student experiences numbness (feels nothing/lack of sensation) in hand/feet/leg/arm.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Leprosy_2_1" name="Leprosy_2_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Leprosy_2_1')"></div>
+                            <label class="checkbox-label" for="Leprosy_2_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cerebral Palsy (CP) -->
+                <h3><i class="fas fa-brain mr-2"></i>Cerebral Palsy (CP)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">3.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has stiffness/floppiness in limbs and/or jerky movement in limbs/jerky walking pattern/involuntary (uncontrolled) movements.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="CP_3_1" name="CP_3_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('CP_3_1')"></div>
+                            <label class="checkbox-label" for="CP_3_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">3.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has problems in self-help skills/defecating/washing/eating/holding and placing objects/cutting/pasting.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="CP_3_2" name="CP_3_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('CP_3_2')"></div>
+                            <label class="checkbox-label" for="CP_3_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">3.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has slurred (unclear) speech or drooling.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="CP_3_3" name="CP_3_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('CP_3_3')"></div>
+                            <label class="checkbox-label" for="CP_3_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dwarfism -->
+                <h3><i class="fas fa-child mr-2"></i>Dwarfism</h3>
+                <div class="assessment-item">
+                    <div class="item-number">4.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is significantly shorter for his/her age.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Dwarfism_4_1" name="Dwarfism_4_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Dwarfism_4_1')"></div>
+                            <label class="checkbox-label" for="Dwarfism_4_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">4.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has a disproportionately large head/bowed legs/short fingers/neck.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Dwarfism_4_2" name="Dwarfism_4_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Dwarfism_4_2')"></div>
+                            <label class="checkbox-label" for="Dwarfism_4_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Muscular Dystrophy -->
+                <h3><i class="fas fa-dumbbell mr-2"></i>Muscular Dystrophy</h3>
+                <div class="assessment-item">
+                    <div class="item-number">5.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student falls frequently and has difficulty getting up from a lying or sitting position.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MD_5_1" name="MD_5_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MD_5_1')"></div>
+                            <label class="checkbox-label" for="MD_5_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">5.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student always walks on his/her toes.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MD_5_2" name="MD_5_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MD_5_2')"></div>
+                            <label class="checkbox-label" for="MD_5_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acid Attack Victim -->
+                <h3><i class="fas fa-shield-alt mr-2"></i>Acid Attack Victim</h3>
+                <div class="assessment-item">
+                    <div class="item-number">6.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is an acid attack survivor.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Acid_6_1" name="Acid_6_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Acid_6_1')"></div>
+                            <label class="checkbox-label" for="Acid_6_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blindness -->
+                <h3><i class="fas fa-eye-slash mr-2"></i>Blindness</h3>
+                <div class="assessment-item">
+                    <div class="item-number">7.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is unable to see anything using both eyes.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Blindness_7_1" name="Blindness_7_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Blindness_7_1')"></div>
+                            <label class="checkbox-label" for="Blindness_7_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Low Vision (LV) -->
+                <h3><i class="fas fa-eye mr-2"></i>Low Vision (LV)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">8.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in seeing in low lighting or feels the need to move towards the source of light.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_1" name="LV_8_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_1')"></div>
+                            <label class="checkbox-label" for="LV_8_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student blinks/rubs his/her eyes frequently or complains about burning sensation or itchiness in or around the eyes/frequent headache.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_2" name="LV_8_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_2')"></div>
+                            <label class="checkbox-label" for="LV_8_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student holds a book too far or too close while reading.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_3" name="LV_8_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_3')"></div>
+                            <label class="checkbox-label" for="LV_8_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student faces difficulties while reading such as misplaces the line or skips lines in between, omits words, adds words, moves head along the text.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_4" name="LV_8_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_4')"></div>
+                            <label class="checkbox-label" for="LV_8_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student avoids engaging in activities requiring visual focus such as reading or colouring or writing/copying from blackboard or prefers to copy from peers.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_5" name="LV_8_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_5')"></div>
+                            <label class="checkbox-label" for="LV_8_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.6</div>
+                    <div class="item-content">
+                        <div class="item-text">This student closes or covers one eye while reading or focusing on close objects.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_6" name="LV_8_6">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_6')"></div>
+                            <label class="checkbox-label" for="LV_8_6">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">8.7</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has misaligned eyes (asymmetrical or squint).</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="LV_8_7" name="LV_8_7">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('LV_8_7')"></div>
+                            <label class="checkbox-label" for="LV_8_7">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hearing Impairment (HI) -->
+                <h3><i class="fas fa-deaf mr-2"></i>Hearing Impairment (HI)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">9.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student turns head to position ear in the direction of the speaker or purposefully watches the face of the speaker during a conversation.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="HI_9_1" name="HI_9_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('HI_9_1')"></div>
+                            <label class="checkbox-label" for="HI_9_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">9.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student does not respond when addressed or called out.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="HI_9_2" name="HI_9_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('HI_9_2')"></div>
+                            <label class="checkbox-label" for="HI_9_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">9.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student uses an unusually loud voice while speaking or often mispronounces words.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="HI_9_3" name="HI_9_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('HI_9_3')"></div>
+                            <label class="checkbox-label" for="HI_9_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">9.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student frequently asks for repetition during dictation or verbal instruction.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="HI_9_4" name="HI_9_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('HI_9_4')"></div>
+                            <label class="checkbox-label" for="HI_9_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">9.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has problems in hearing environmental sounds such as the school bell, people calling or is not startled/surprised by loud noises.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="HI_9_5" name="HI_9_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('HI_9_5')"></div>
+                            <label class="checkbox-label" for="HI_9_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speech & Language Disability -->
+                <h3><i class="fas fa-comments mr-2"></i>Speech & Language Disability</h3>
+                <div class="assessment-item">
+                    <div class="item-number">10.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student repeats words or parts of words or speaks in short, fragmented phrases.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Speech_10_1" name="Speech_10_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Speech_10_1')"></div>
+                            <label class="checkbox-label" for="Speech_10_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">10.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student stammers while speaking or speaks incoherently.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Speech_10_2" name="Speech_10_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Speech_10_2')"></div>
+                            <label class="checkbox-label" for="Speech_10_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intellectual Disability (ID) -->
+                <h3><i class="fas fa-brain mr-2"></i>Intellectual Disability (ID)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">11.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in communicating or socializing with others.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ID_11_1" name="ID_11_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ID_11_1')"></div>
+                            <label class="checkbox-label" for="ID_11_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">11.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is unable to do everyday tasks like finishing homework/following instructions/directions of the teacher or even using the washroom without help.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ID_11_2" name="ID_11_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ID_11_2')"></div>
+                            <label class="checkbox-label" for="ID_11_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">11.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student's behaviour doesn't conform to the context (playground/classroom/home) or accepted social norms for example, frequently walks out of the class without permission, speaks out of turn and keeps interrupting.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ID_11_3" name="ID_11_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ID_11_3')"></div>
+                            <label class="checkbox-label" for="ID_11_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">11.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in applying what is learnt successfully in one situation/context to another (e.g., solving an arithmetic problem on paper but not in a real-life scenario).</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ID_11_4" name="ID_11_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ID_11_4')"></div>
+                            <label class="checkbox-label" for="ID_11_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specific Learning Disabilities (SLD) -->
+                <h3><i class="fas fa-book mr-2"></i>Specific Learning Disabilities (SLD)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">12.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student reads or writes slower than the average/expected speed.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_1" name="SLD_12_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_1')"></div>
+                            <label class="checkbox-label" for="SLD_12_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">12.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student faces difficulty in comprehending (understanding) written text or spoken words/sentences despite adequate schooling.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_2" name="SLD_12_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_2')"></div>
+                            <label class="checkbox-label" for="SLD_12_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">12.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student reverses letters or numbers while writing or reading (for example b for d, p for q, was for saw, 12 for 21, etc.).</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_3" name="SLD_12_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_3')"></div>
+                            <label class="checkbox-label" for="SLD_12_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">12.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in expressing thoughts verbally or in written form in spite of having adequate vocabulary.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_4" name="SLD_12_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_4')"></div>
+                            <label class="checkbox-label" for="SLD_12_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">12.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty with spelling.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_5" name="SLD_12_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_5')"></div>
+                            <label class="checkbox-label" for="SLD_12_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">12.6</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty with mathematical calculations.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="SLD_12_6" name="SLD_12_6">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('SLD_12_6')"></div>
+                            <label class="checkbox-label" for="SLD_12_6">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autism Spectrum Disorder (ASD) -->
+                <h3><i class="fas fa-puzzle-piece mr-2"></i>Autism Spectrum Disorder (ASD)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">13.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student avoids eye contact and resists physical contact.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ASD_13_1" name="ASD_13_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ASD_13_1')"></div>
+                            <label class="checkbox-label" for="ASD_13_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">13.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student engages in repetitive behaviour or self-injurious behaviour or tantrums.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ASD_13_2" name="ASD_13_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ASD_13_2')"></div>
+                            <label class="checkbox-label" for="ASD_13_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">13.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows strong attachment to objects or talks excessively about one topic/area of interest.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ASD_13_3" name="ASD_13_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ASD_13_3')"></div>
+                            <label class="checkbox-label" for="ASD_13_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">13.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in social relationships and prefers to be alone.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ASD_13_4" name="ASD_13_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ASD_13_4')"></div>
+                            <label class="checkbox-label" for="ASD_13_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">13.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows delay in speech and language development or uses speech in unusual ways.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ASD_13_5" name="ASD_13_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ASD_13_5')"></div>
+                            <label class="checkbox-label" for="ASD_13_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADHD -->
+                <h3><i class="fas fa-bolt mr-2"></i>Attention Deficit Hyperactivity Disorder (ADHD)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">14.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is easily distracted and has difficulty in sustaining attention in tasks or play activities.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_1" name="ADHD_14_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_1')"></div>
+                            <label class="checkbox-label" for="ADHD_14_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">14.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student is restless/fidgety or leaves seat when expected to sit.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_2" name="ADHD_14_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_2')"></div>
+                            <label class="checkbox-label" for="ADHD_14_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">14.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student talks excessively and/or interrupts others.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_3" name="ADHD_14_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_3')"></div>
+                            <label class="checkbox-label" for="ADHD_14_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">14.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in following instructions and/or rules.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_4" name="ADHD_14_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_4')"></div>
+                            <label class="checkbox-label" for="ADHD_14_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">14.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student acts impulsively without thinking about consequences.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_5" name="ADHD_14_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_5')"></div>
+                            <label class="checkbox-label" for="ADHD_14_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">14.6</div>
+                    <div class="item-content">
+                        <div class="item-text">This student loses things frequently and is forgetful in daily activities.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="ADHD_14_6" name="ADHD_14_6">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('ADHD_14_6')"></div>
+                            <label class="checkbox-label" for="ADHD_14_6">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mental Illness -->
+                <h3><i class="fas fa-head-side-virus mr-2"></i>Mental Illness (MI)</h3>
+                <div class="assessment-item">
+                    <div class="item-number">15.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student exhibits extreme and frequent mood changes.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MI_15_1" name="MI_15_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MI_15_1')"></div>
+                            <label class="checkbox-label" for="MI_15_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">15.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows excessive fear or anxiety in social situations.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MI_15_2" name="MI_15_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MI_15_2')"></div>
+                            <label class="checkbox-label" for="MI_15_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">15.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows signs of depression, withdrawal, or persistent sadness.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MI_15_3" name="MI_15_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MI_15_3')"></div>
+                            <label class="checkbox-label" for="MI_15_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">15.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty in distinguishing between reality and fantasy.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="MI_15_4" name="MI_15_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('MI_15_4')"></div>
+                            <label class="checkbox-label" for="MI_15_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chronic Neurological Conditions -->
+                <h3><i class="fas fa-brain mr-2"></i>Chronic Neurological Conditions</h3>
+                <div class="assessment-item">
+                    <div class="item-number">16.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has recurring seizures or convulsions.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Chronic_16_1" name="Chronic_16_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Chronic_16_1')"></div>
+                            <label class="checkbox-label" for="Chronic_16_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">16.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has frequent episodes of headache or migraine affecting school performance.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Chronic_16_2" name="Chronic_16_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Chronic_16_2')"></div>
+                            <label class="checkbox-label" for="Chronic_16_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">16.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows signs of progressive memory loss or cognitive decline.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Chronic_16_3" name="Chronic_16_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Chronic_16_3')"></div>
+                            <label class="checkbox-label" for="Chronic_16_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">16.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has chronic fatigue or persistent tiredness affecting daily activities.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Chronic_16_4" name="Chronic_16_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Chronic_16_4')"></div>
+                            <label class="checkbox-label" for="Chronic_16_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multiple Disabilities -->
+                <h3><i class="fas fa-layer-group mr-2"></i>Multiple Disabilities</h3>
+                <div class="assessment-item">
+                    <div class="item-number">17.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has a combination of physical and intellectual challenges.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Multiple_17_1" name="Multiple_17_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Multiple_17_1')"></div>
+                            <label class="checkbox-label" for="Multiple_17_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">17.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has hearing loss combined with visual impairment.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Multiple_17_2" name="Multiple_17_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Multiple_17_2')"></div>
+                            <label class="checkbox-label" for="Multiple_17_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">17.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires extensive support in multiple areas of development.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Multiple_17_3" name="Multiple_17_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Multiple_17_3')"></div>
+                            <label class="checkbox-label" for="Multiple_17_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parkinson's Disease -->
+                <h3><i class="fas fa-hand-sparkles mr-2"></i>Parkinson's Disease</h3>
+                <div class="assessment-item">
+                    <div class="item-number">18.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows tremors or shaking movements in hands or other body parts.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Parkinson_18_1" name="Parkinson_18_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Parkinson_18_1')"></div>
+                            <label class="checkbox-label" for="Parkinson_18_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">18.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has difficulty with balance and coordination.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Parkinson_18_2" name="Parkinson_18_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Parkinson_18_2')"></div>
+                            <label class="checkbox-label" for="Parkinson_18_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">18.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows muscle stiffness and slow movements.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Parkinson_18_3" name="Parkinson_18_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Parkinson_18_3')"></div>
+                            <label class="checkbox-label" for="Parkinson_18_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Haemophilia -->
+                <h3><i class="fas fa-tint mr-2"></i>Haemophilia</h3>
+                <div class="assessment-item">
+                    <div class="item-number">19.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student bleeds for a long time after minor injuries or cuts.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Haemophilia_19_1" name="Haemophilia_19_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Haemophilia_19_1')"></div>
+                            <label class="checkbox-label" for="Haemophilia_19_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">19.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has frequent nosebleeds or bruising without apparent cause.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Haemophilia_19_2" name="Haemophilia_19_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Haemophilia_19_2')"></div>
+                            <label class="checkbox-label" for="Haemophilia_19_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">19.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has pain or swelling in joints, especially knees and elbows.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Haemophilia_19_3" name="Haemophilia_19_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Haemophilia_19_3')"></div>
+                            <label class="checkbox-label" for="Haemophilia_19_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">19.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student needs to avoid contact sports or activities with high injury risk.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Haemophilia_19_4" name="Haemophilia_19_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Haemophilia_19_4')"></div>
+                            <label class="checkbox-label" for="Haemophilia_19_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thalassemia -->
+                <h3><i class="fas fa-heartbeat mr-2"></i>Thalassemia</h3>
+                <div class="assessment-item">
+                    <div class="item-number">20.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows signs of fatigue, weakness, or shortness of breath.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Thalassemia_20_1" name="Thalassemia_20_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Thalassemia_20_1')"></div>
+                            <label class="checkbox-label" for="Thalassemia_20_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">20.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has pale or yellowish skin color.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Thalassemia_20_2" name="Thalassemia_20_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Thalassemia_20_2')"></div>
+                            <label class="checkbox-label" for="Thalassemia_20_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">20.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires regular medical check-ups or blood transfusions.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Thalassemia_20_3" name="Thalassemia_20_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Thalassemia_20_3')"></div>
+                            <label class="checkbox-label" for="Thalassemia_20_3">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sickle Cell Disease -->
+                <h3><i class="fas fa-dna mr-2"></i>Sickle Cell Disease</h3>
+                <div class="assessment-item">
+                    <div class="item-number">21.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student experiences frequent episodes of severe pain.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Sickle_21_1" name="Sickle_21_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Sickle_21_1')"></div>
+                            <label class="checkbox-label" for="Sickle_21_1">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">21.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows signs of anemia, fatigue, or delayed growth.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Sickle_21_2" name="Sickle_21_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Sickle_21_2')"></div>
+                            <label class="checkbox-label" for="Sickle_21_2">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">21.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student has frequent infections or complications requiring medical attention.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Sickle_21_3" name="Sickle_21_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Sickle_21_3')"></div>
+                            <label class="checkbox-label" for="Sickle_21_3">Applies</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Part 2: Additional Assessment -->
-            <div class="bg-white rounded-xl shadow-lg p-6 form-section">
-                <div class="section-header text-white p-4 rounded-t-lg -mx-6 -mt-6 mb-6">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-plus-circle mr-3"></i>
-                        Part 2: Additional Assessment
-                    </h2>
-                    <p class="text-blue-100 mt-1">Supplementary assessment items</p>
+            <div class="section">
+                <h2><i class="fas fa-plus-circle mr-2"></i>Part 2: Additional Assessment Items</h2>
+                <p><strong>Instructions:</strong> Tick (✓) if the behavior applies to this student</p>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.1</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires assistive devices for mobility or communication.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_1" name="Part2_1">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_1')"></div>
+                            <label class="checkbox-label" for="Part2_1">Applies</label>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="part2-assessments" class="space-y-6">
-                    <!-- Assessment items will be generated by JavaScript -->
+                <div class="assessment-item">
+                    <div class="item-number">P2.2</div>
+                    <div class="item-content">
+                        <div class="item-text">This student needs environmental modifications for accessibility.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_2" name="Part2_2">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_2')"></div>
+                            <label class="checkbox-label" for="Part2_2">Applies</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Assessor Information -->
-            <div class="bg-white rounded-xl shadow-lg p-6 form-section">
-                <div class="section-header text-white p-4 rounded-t-lg -mx-6 -mt-6 mb-6">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-user-tie mr-3"></i>
-                        Assessor Information
-                    </h2>
+                <div class="assessment-item">
+                    <div class="item-number">P2.3</div>
+                    <div class="item-content">
+                        <div class="item-text">This student benefits from individualized education plans or accommodations.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_3" name="Part2_3">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_3')"></div>
+                            <label class="checkbox-label" for="Part2_3">Applies</label>
+                        </div>
+                    </div>
                 </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Assessor Name *</label>
-                    <input type="text" id="assessor-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.4</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires additional time for completing tasks or assessments.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_4" name="Part2_4">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_4')"></div>
+                            <label class="checkbox-label" for="Part2_4">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.5</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows potential for academic or creative excellence in specific areas.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_5" name="Part2_5">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_5')"></div>
+                            <label class="checkbox-label" for="Part2_5">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.6</div>
+                    <div class="item-content">
+                        <div class="item-text">This student needs therapeutic interventions or specialized support services.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_6" name="Part2_6">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_6')"></div>
+                            <label class="checkbox-label" for="Part2_6">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.7</div>
+                    <div class="item-content">
+                        <div class="item-text">This student's family requires counseling or support services.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_7" name="Part2_7">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_7')"></div>
+                            <label class="checkbox-label" for="Part2_7">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.8</div>
+                    <div class="item-content">
+                        <div class="item-text">This student demonstrates adaptive behaviors appropriate for their developmental level.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_8" name="Part2_8">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_8')"></div>
+                            <label class="checkbox-label" for="Part2_8">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.9</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires medication management during school hours.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_9" name="Part2_9">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_9')"></div>
+                            <label class="checkbox-label" for="Part2_9">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.10</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows progress in skill development with appropriate support.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_10" name="Part2_10">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_10')"></div>
+                            <label class="checkbox-label" for="Part2_10">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.11</div>
+                    <div class="item-content">
+                        <div class="item-text">This student benefits from peer support or buddy systems.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_11" name="Part2_11">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_11')"></div>
+                            <label class="checkbox-label" for="Part2_11">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.12</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires emergency action plans for specific health conditions.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_12" name="Part2_12">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_12')"></div>
+                            <label class="checkbox-label" for="Part2_12">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.13</div>
+                    <div class="item-content">
+                        <div class="item-text">This student participates effectively in inclusive classroom activities.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_13" name="Part2_13">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_13')"></div>
+                            <label class="checkbox-label" for="Part2_13">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.14</div>
+                    <div class="item-content">
+                        <div class="item-text">This student shows improvement in social skills with intervention.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_14" name="Part2_14">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_14')"></div>
+                            <label class="checkbox-label" for="Part2_14">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.15</div>
+                    <div class="item-content">
+                        <div class="item-text">This student requires transition planning for future educational or vocational goals.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_15" name="Part2_15">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_15')"></div>
+                            <label class="checkbox-label" for="Part2_15">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.16</div>
+                    <div class="item-content">
+                        <div class="item-text">This student demonstrates self-advocacy skills appropriate for their age.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_16" name="Part2_16">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_16')"></div>
+                            <label class="checkbox-label" for="Part2_16">Applies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assessment-item">
+                    <div class="item-number">P2.17</div>
+                    <div class="item-content">
+                        <div class="item-text">This student would benefit from follow-up assessments by specialists.</div>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="Part2_17" name="Part2_17">
+                            <div class="custom-checkbox" onclick="toggleCheckbox('Part2_17')"></div>
+                            <label class="checkbox-label" for="Part2_17">Applies</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Submit Section -->
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="text-center space-y-4">
-                    <div class="flex justify-center space-x-4">
-                        <button type="button" onclick="saveProgress()" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition duration-200">
-                            <i class="fas fa-save mr-2"></i>Save Progress
-                        </button>
-                        <button type="button" onclick="loadProgress()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                            <i class="fas fa-upload mr-2"></i>Load Progress
-                        </button>
-                        <button type="submit" class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition duration-200 font-semibold">
-                            <i class="fas fa-paper-plane mr-2"></i>Submit Assessment
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-600">All data will be automatically saved to Google Sheets upon submission</p>
-                </div>
+            <div class="submit-container">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane mr-2"></i>Submit Assessment
+                </button>
+                <div id="statusMessage" class="status-message" style="display: none;"></div>
             </div>
         </form>
     </div>
 
-    <!-- Loading Modal -->
-    <div id="loading-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white p-8 rounded-lg shadow-xl">
-            <div class="text-center">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p class="text-lg font-semibold">Submitting Assessment...</p>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYPA8-sZ2KgMhG02zHlwemoNaYXIJqYE1CSopSTJG213iCGfkQk9FdFZSX9jR8uVXfjg/exec';
-
-        // Complete assessment data mapping
-        const assessmentData = {
-            part1: {
-                'Locomotor Disability (LD)': [
-                    { id: '1.1', text: 'This student has difficulty in walking or needs support to walk/climb stairs.' },
-                    { id: '1.2', text: 'This student has difficulty in moving/using any part of the body (for example hands for writing, eating, etc.).' },
-                    { id: '1.3', text: 'This student has observable deformity such as missing any body parts, say for example hand/finger/leg.' }
-                ],
-                'Leprosy Cured Person': [
-                    { id: '2.1', text: 'This student experiences numbness (feels nothing/lack of sensation) in hand/feet/leg/arm.' }
-                ],
-                'Cerebral Palsy (CP)': [
-                    { id: '3.1', text: 'This student has stiffness/floppiness in limbs and/or jerky movement in limbs/jerky walking pattern/involuntary (uncontrolled) movements.' },
-                    { id: '3.2', text: 'This student has problems in self-help skills/defecating/washing/eating/holding and placing objects/cutting/pasting.' },
-                    { id: '3.3', text: 'This student has slurred (unclear) speech or drooling.' }
-                ],
-                'Dwarfism': [
-                    { id: '4.1', text: 'This student is significantly shorter for his/her age.' },
-                    { id: '4.2', text: 'This student has a disproportionately large head/bowed legs/short fingers/neck.' }
-                ],
-                'Muscular Dystrophy': [
-                    { id: '5.1', text: 'This student falls frequently and has difficulty getting up from a lying or sitting position.' },
-                    { id: '5.2', text: 'This student always walks on his/her toes.' }
-                ],
-                'Acid Attack Victim': [
-                    { id: '6.1', text: 'This student is an acid attack survivor.' }
-                ],
-                'Blindness': [
-                    { id: '7.1', text: 'This student is unable to see anything using both eyes.' }
-                ],
-                'Low Vision (LV)': [
-                    { id: '8.1', text: 'This student has difficulty in seeing in low lighting or feels the need to move towards the source of light.' },
-                    { id: '8.2', text: 'This student blinks/rubs his/her eyes frequently or complains about burning sensation or itchiness in or around the eyes/frequent headache.' },
-                    { id: '8.3', text: 'This student holds a book too far or too close while reading.' },
-                    { id: '8.4', text: 'This student faces difficulties while reading such as misplaces the line or skips lines in between, omits words, adds words, moves head along the text.' },
-                    { id: '8.5', text: 'This student avoids engaging in activities requiring visual focus such as reading or colouring or writing/copying from blackboard or prefers to copy from peers.' },
-                    { id: '8.6', text: 'This student closes or covers one eye while reading or focusing on close objects.' },
-                    { id: '8.7', text: 'This student has misaligned eyes (asymmetrical or squint).' }
-                ],
-                'Hearing Impairment (HI)': [
-                    { id: '9.1', text: 'This student turns head to position ear in the direction of the speaker or purposefully watches the face of the speaker during a conversation.' },
-                    { id: '9.2', text: 'This student does not respond when addressed or called out.' },
-                    { id: '9.3', text: 'This student uses an unusually loud voice while speaking or often mispronounces words.' },
-                    { id: '9.4', text: 'This student frequently asks for repetition during dictation or verbal instruction.' },
-                    { id: '9.5', text: 'This student has problems in hearing environmental sounds such as the school bell, people calling or is not startled/surprised by loud noises.' }
-                ],
-                'Speech & Language Disability': [
-                    { id: '10.1', text: 'This student repeats words or parts of words or speaks in short, fragmented phrases.' },
-                    { id: '10.2', text: 'This student stammers while speaking or speaks incoherently.' }
-                ],
-                'Intellectual Disability (ID)': [
-                    { id: '11.1', text: 'This student has difficulty in communicating or socializing with others.' },
-                    { id: '11.2', text: 'This student is unable to do everyday tasks like finishing homework/following instructions/directions of the teacher or even using the washroom without help.' },
-                    { id: '11.3', text: "This student's behaviour doesn't conform to the context (playground/classroom/home) or accepted social norms for example, frequently walks out of the class without permission, speaks out of turn and keeps interrupting." },
-                    { id: '11.4', text: 'This student has difficulty in applying what is learnt successfully in one situation/context to another (e.g., solving an arithmetic problem on paper but not in a real-life scenario).' }
-                ],
-                'Specific Learning Disabilities (SLD)': [
-                    { id: '12.1', text: 'This student reads or writes slower than the average/expected speed.' },
-                    { id: '12.2', text: 'This student has bad handwriting that lacks clarity even after sufficient practice and exercises.' },
-                    { id: '12.3', text: 'This student has continuous difficulties in understanding the meaning of what is read.' },
-                    { id: '12.4', text: 'This student exhibits difficulty in recalling the spellings of learnt words/grammar/punctuation/organization, even after teaching multiple times.' },
-                    { id: '12.5', text: 'This student has a comparatively short attention span or is unable to concentrate on a task.' },
-                    { id: '12.6', text: 'This student has difficulty in organizing himself/herself to complete a task on time.' },
-                    { id: '12.7', text: 'This student lacks a sense of direction (left-right/up-down/front back).' },
-                    { id: '12.8', text: "This student reverses letters or symbols or words or numbers while writing, for example, writing 'q' instead 'p' or b/d, u/v, w/m, frequently." },
-                    { id: '12.9', text: 'The errors committed by this student have a particular pattern or consistency.' },
-                    { id: '12.10', text: 'This student has difficulty in understanding mathematical symbols such as +, -, x, ÷.' }
-                ],
-                'Autism Spectrum Disorder (ASD)': [
-                    { id: '13.1', text: 'This student has difficulty in making eye contact or looking at the speaker.' },
-                    { id: '13.2', text: "This student echoes or repeats words. For example, on being asked 'What is your name?' will repeat 'What is your name?' instead of telling his/her name." },
-                    { id: '13.3', text: 'This student frequently engages in repetitive play/actions. For example, spinning, flapping hands, rocking, or lining up objects.' },
-                    { id: '13.4', text: 'This student is unusually sensitive to certain sounds/touch/texture/light/smell, or shows little or no reaction to pain or heat or cold.' },
-                    { id: '13.5', text: 'This student has strong resistance to changes in routine.' },
-                    { id: '13.6', text: 'This student has an unusual attachment to an object (for example holding a toy/pencil/stone/leaf for an unusually long time).' },
-                    { id: '13.7', text: 'This student is unaware of danger. For example, walking in the middle of a road/playing with fire.' },
-                    { id: '13.8', text: "This student doesn't initiate interaction or prefers to stay alone." }
-                ],
-                'Mental Illness (MI)': [
-                    { id: '14.1', text: 'This student often appears sad, or seems withdrawn, or has severe mood swings that cause problems in relationships at school.' },
-                    { id: '14.2', text: 'This student has trouble focusing or sitting still/staying in his/her seat?' },
-                    { id: '14.3', text: 'This student has an unexplained weight loss or weight gain?' },
-                    { id: '14.4', text: 'This student look anxious and frequently report symptoms such as headaches and stomach aches?' }
-                ],
-                'Multiple Sclerosis (MS)': [
-                    { id: '15.1', text: 'This student has numbness or weakness in limbs that typically occurs on one side of the body at a time or the legs and trunk?' },
-                    { id: '15.2', text: 'This student complains about electric shock sensations that occur with certain neck movements?' }
-                ],
-                "Parkinson's Disease": [
-                    { id: '16.1', text: 'This student has cramped and smaller handwriting?' }
-                ],
-                'Haemophilia': [
-                    { id: '17.1', text: 'Does this student have unexplained and excessive bleeding from cuts or injuries?' },
-                    { id: '17.2', text: 'Does this student have many large or deep bruises?' },
-                    { id: '17.3', text: 'Does this student appear to be very lethargic?' },
-                    { id: '17.4', text: 'Does this student complain of a painful and prolonged headache?' },
-                    { id: '17.5', text: 'Does this student have a tendency to bleed from the nose, mouth, and gums without a known cause?' }
-                ],
-                'Thalassemia': [
-                    { id: '18.1', text: 'Does this student get easily tired?' },
-                    { id: '18.2', text: 'Does this student complain of unusual (out-of proportion) weakness?' },
-                    { id: '18.3', text: 'Does this student have pale or yellowish skin?' },
-                    { id: '18.4', text: 'Does this student look anaemic or affected with anaemia?' },
-                    { id: '18.5', text: 'Does this student complain of the dark colour of the urine?' }
-                ],
-                'Sickle Cell Disease': [
-                    { id: '19.1', text: 'Does this student exhibit unexplained episodes of severe pain?' },
-                    { id: '19.2', text: 'Does this student exhibit swelling in the hands or feet most of the time?' }
-                ]
-            },
-            part2: {
-                'Mental Illness (MI)': [
-                    { id: '14.5', text: '*Does this student indulge in self-harm activities such as making cut marks or burning fingers?' },
-                    { id: '14.6', text: '*Has this student been observed to exhibit suicidal thoughts or talk about attempting suicide?' },
-                    { id: '14.7', text: 'Has this student been observed getting involved in drugs or alcohol use?' },
-                    { id: '14.8', text: 'Does this student have intense fear of something, which, in reality, has little or no actual danger?' },
-                    { id: '14.9', text: 'Has this student been observed to be detached from reality and living in an imaginative world? (e.g., talking to or hearing voices of imaginary friends that is not make-believe play).' },
-                    { id: '14.10', text: '*Does this student have drastic changes in behaviour or personality, for example, fighting frequently, using weapons, and or expressing a desire to hurt himself/herself or others?' }
-                ],
-                'Multiple Sclerosis (MS)': [
-                    { id: '15.3', text: '*Does this student get tremors (rhythmic, muscle contraction and relaxation)?' },
-                    { id: '15.4', text: 'Does this student exhibit partial or complete loss of vision, usually in one eye at a time?' },
-                    { id: '15.5', text: 'Does this student have blurry and unclear vision?' },
-                    { id: '15.6', text: '*Does this student have slurred speech? (characterized by poor pronunciation of words, mumbling, or a change in speed or rhythm during talking).' },
-                    { id: '15.7', text: 'Does this student get easily tired or fatigued?' },
-                    { id: '15.8', text: 'Does this student complain about pins-and-needles sensation especially in the face, arms, legs and fingers?' }
-                ],
-                "Parkinson's Disease": [
-                    { id: '16.2', text: '*Does this student have tremors or shaking that usually begins in a limb, often hand or finger?' }
-                ],
-                'Haemophilia': [
-                    { id: '17.6', text: '*Does this student have unusual bleeding after vaccinations?' },
-                    { id: '17.7', text: 'Does this student have pain, swelling or tightness in joints?' },
-                    { id: '17.8', text: 'Does this student vomit repeatedly?' }
-                ],
-                'Thalassemia': [
-                    { id: '18.6', text: '*Is this student frequently absent and visit the hospital for blood transfusion?' }
-                ]
-            }
-        };
-
-        // Generate assessment items
-        function generateAssessmentItems() {
-            const part1Container = document.getElementById('part1-assessments');
-            const part2Container = document.getElementById('part2-assessments');
-
-            // Generate Part 1 items
-            Object.entries(assessmentData.part1).forEach(([category, items]) => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'mb-8';
-                categoryDiv.innerHTML = `
-                    <h3 class="text-lg font-semibold text-purple-800 mb-4 pb-2 border-b-2 border-purple-200">
-                        ${category}
-                    </h3>
-                    <div class="space-y-4">
-                        ${items.map(item => createAssessmentItem(item, category, 'part1')).join('')}
-                    </div>
-                `;
-                part1Container.appendChild(categoryDiv);
-            });
-
-            // Generate Part 2 items
-            Object.entries(assessmentData.part2).forEach(([category, items]) => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'mb-8';
-                categoryDiv.innerHTML = `
-                    <h3 class="text-lg font-semibold text-purple-800 mb-4 pb-2 border-b-2 border-purple-200">
-                        ${category} (Additional)
-                    </h3>
-                    <div class="space-y-4">
-                        ${items.map(item => createAssessmentItem(item, category, 'part2')).join('')}
-                    </div>
-                `;
-                part2Container.appendChild(categoryDiv);
-            });
-        }
-
-        function createAssessmentItem(item, category, part) {
-            const isSpecial = item.text.startsWith('*');
-            const itemId = `${part}-${item.id.replace('.', '-')}`;
+        // INTEGRATED: Google Apps Script URL for production deployment
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwV6ZuC0iI2OXN_Fcsr4BUyzqmh_BFJ01faggrV0z6IaPxvjEUdlu7l5u2jvzT7V59z5A/exec';
+        
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id);
+            const customCheckbox = checkbox.nextElementSibling;
             
-            return `
-                <div class="assessment-item bg-gray-50 p-4 rounded-lg border ${isSpecial ? 'border-red-300 bg-red-50' : 'border-gray-200'}">
-                    <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0">
-                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${isSpecial ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'} text-sm font-semibold">
-                                ${item.id}
-                            </span>
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-gray-800 mb-3 ${isSpecial ? 'font-medium' : ''}">${item.text}</p>
-                            ${isSpecial ? '<p class="text-red-600 text-xs mb-2"><i class="fas fa-exclamation-triangle mr-1"></i>Requires special attention/professional consultation</p>' : ''}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Response</label>
-                                    <div class="flex space-x-4">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" name="${itemId}-response" value="yes" class="form-radio text-green-600" onchange="updateProgress()">
-                                            <span class="ml-2 text-green-600">✓ Yes</span>
-                                        </label>
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" name="${itemId}-response" value="no" class="form-radio text-red-600" onchange="updateProgress()">
-                                            <span class="ml-2 text-red-600">✗ No</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Notes/Comments</label>
-                                    <textarea name="${itemId}-notes" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" placeholder="Additional observations..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                customCheckbox.classList.add('checked');
+                customCheckbox.innerHTML = '✓';
+            } else {
+                customCheckbox.classList.remove('checked');
+                customCheckbox.innerHTML = '';
+            }
+            
+            updateProgress();
         }
-
+        
         function updateProgress() {
-            const totalItems = getTotalAssessmentItems();
-            const completedItems = getCompletedAssessmentItems();
-            const percentage = Math.round((completedItems / totalItems) * 100);
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            const progress = (checked.length / checkboxes.length) * 100;
             
-            document.getElementById('progress-count').textContent = completedItems;
-            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progressFill').style.width = progress + '%';
         }
-
-        function getTotalAssessmentItems() {
-            let total = 0;
-            Object.values(assessmentData.part1).forEach(items => total += items.length);
-            Object.values(assessmentData.part2).forEach(items => total += items.length);
-            return total;
-        }
-
-        function getCompletedAssessmentItems() {
-            const form = document.getElementById('prashast-form');
-            const radioInputs = form.querySelectorAll('input[type="radio"]:checked');
-            return radioInputs.length;
-        }
-
-        function collectAssessmentData() {
-            const responses = [];
+        
+        // Handle form submission with proper error handling
+        document.getElementById('assessmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            // Collect Part 1 responses
-            Object.entries(assessmentData.part1).forEach(([category, items]) => {
-                items.forEach(item => {
-                    const itemId = `part1-${item.id.replace('.', '-')}`;
-                    const responseElement = document.querySelector(`input[name="${itemId}-response"]:checked`);
-                    const notesElement = document.querySelector(`textarea[name="${itemId}-notes"]`);
-                    
-                    if (responseElement) {
-                        responses.push({
-                            itemNo: item.id,
-                            condition: category,
-                            item: item.text,
-                            response: responseElement.value === 'yes' ? '✓' : '✗',
-                            notes: notesElement ? notesElement.value : '',
-                            part: 'Part-1'
-                        });
-                    }
-                });
-            });
-
-            // Collect Part 2 responses
-            Object.entries(assessmentData.part2).forEach(([category, items]) => {
-                items.forEach(item => {
-                    const itemId = `part2-${item.id.replace('.', '-')}`;
-                    const responseElement = document.querySelector(`input[name="${itemId}-response"]:checked`);
-                    const notesElement = document.querySelector(`textarea[name="${itemId}-notes"]`);
-                    
-                    if (responseElement) {
-                        responses.push({
-                            itemNo: item.id,
-                            condition: category,
-                            item: item.text,
-                            response: responseElement.value === 'yes' ? '✓' : '✗',
-                            notes: notesElement ? notesElement.value : '',
-                            part: 'Part-2'
-                        });
-                    }
-                });
-            });
-
-            return responses;
-        }
-
-        function saveProgress() {
-            const formData = new FormData(document.getElementById('prashast-form'));
-            const data = {};
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
             
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            
-            // Also save input values
-            const inputs = document.querySelectorAll('#prashast-form input, #prashast-form select, #prashast-form textarea');
-            inputs.forEach(input => {
-                if (input.type === 'radio') {
-                    if (input.checked) {
-                        data[input.name] = input.value;
-                    }
-                } else {
-                    data[input.id || input.name] = input.value;
-                }
-            });
-            
-            localStorage.setItem('prashast-progress', JSON.stringify(data));
-            alert('Progress saved successfully!');
-        }
-
-        function loadProgress() {
-            const savedData = localStorage.getItem('prashast-progress');
-            if (!savedData) {
-                alert('No saved progress found.');
-                return;
-            }
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
             
             try {
-                const data = JSON.parse(savedData);
-                
-                // Restore input values
-                Object.entries(data).forEach(([key, value]) => {
-                    const element = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
-                    if (element) {
-                        if (element.type === 'radio') {
-                            const radioButton = document.querySelector(`input[name="${key}"][value="${value}"]`);
-                            if (radioButton) {
-                                radioButton.checked = true;
-                            }
-                        } else {
-                            element.value = value;
-                        }
-                    }
-                });
-                
-                updateProgress();
-                alert('Progress loaded successfully!');
-            } catch (error) {
-                alert('Error loading progress: ' + error.message);
-            }
-        }
-
-        async function submitAssessment() {
-            const loadingModal = document.getElementById('loading-modal');
-            
-            try {
-                // Show loading modal
-                loadingModal.classList.remove('hidden');
-                loadingModal.classList.add('flex');
-                
                 // Collect form data
-                const studentInfo = {
-                    name: document.getElementById('student-name').value,
-                    class: document.getElementById('student-class').value,
-                    section: document.getElementById('student-section').value,
-                    age: document.getElementById('student-age').value,
-                    gender: document.getElementById('student-gender').value,
-                    school: document.getElementById('student-school').value,
-                    state: document.getElementById('student-state').value,
-                    motherName: document.getElementById('mother-name').value,
-                    fatherName: document.getElementById('father-name').value,
-                    height: document.getElementById('student-height').value,
-                    weight: document.getElementById('student-weight').value
-                };
+                const formData = new FormData(this);
+                const data = {};
                 
-                const assessorName = document.getElementById('assessor-name').value;
-                const responses = collectAssessmentData();
-                
-                // Validate required fields
-                if (!studentInfo.name || !studentInfo.class || !studentInfo.section || !studentInfo.age || !studentInfo.gender || !studentInfo.school || !studentInfo.state || !assessorName) {
-                    throw new Error('Please fill in all required fields marked with *');
+                // Get all form values
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
                 }
                 
-                if (responses.length === 0) {
-                    throw new Error('Please complete at least one assessment item before submitting.');
-                }
+                // Get checkbox values (they won't be in formData if unchecked)
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    data[checkbox.name] = checkbox.checked.toString();
+                });
                 
-                // Prepare data for Google Sheets
-                const submissionData = {
-                    studentInfo: studentInfo,
-                    responses: responses,
-                    assessorName: assessorName,
-                    timestamp: new Date().toISOString()
-                };
-                
-                // Submit to Google Sheets
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                // Submit to Google Apps Script
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(submissionData)
+                    body: JSON.stringify(data)
                 });
                 
-                // Hide loading modal
-                loadingModal.classList.add('hidden');
-                loadingModal.classList.remove('flex');
+                const result = await response.json();
                 
-                // Show success message
-                alert(`Assessment submitted successfully!\n\nStudent: ${studentInfo.name}\nItems completed: ${responses.length}\nAssessor: ${assessorName}\n\nData has been saved to Google Sheets.`);
-                
-                // Clear form
-                if (confirm('Would you like to clear the form for the next assessment?')) {
-                    document.getElementById('prashast-form').reset();
+                if (result.success) {
+                    statusMessage.className = 'status-message status-success';
+                    statusMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Assessment submitted successfully! Data saved to Google Sheets.';
+                    statusMessage.style.display = 'block';
+                    
+                    // Reset form
+                    this.reset();
+                    document.querySelectorAll('.custom-checkbox').forEach(cb => {
+                        cb.classList.remove('checked');
+                        cb.innerHTML = '';
+                    });
                     updateProgress();
-                    localStorage.removeItem('prashast-progress');
+                    
+                } else {
+                    throw new Error(result.error || 'Unknown error occurred');
                 }
                 
             } catch (error) {
-                // Hide loading modal
-                loadingModal.classList.add('hidden');
-                loadingModal.classList.remove('flex');
-                
-                alert('Error submitting assessment: ' + error.message);
                 console.error('Submission error:', error);
+                statusMessage.className = 'status-message status-error';
+                statusMessage.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i>Error submitting assessment: ' + error.message + '. Please try again.';
+                statusMessage.style.display = 'block';
             }
-        }
-
-        // Form submission handler
-        document.getElementById('prashast-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitAssessment();
-        });
-
-        // Initialize the form
-        document.addEventListener('DOMContentLoaded', function() {
-            generateAssessmentItems();
-            updateProgress();
             
-            // Auto-save progress periodically
-            setInterval(() => {
-                if (getCompletedAssessmentItems() > 0) {
-                    saveProgress();
-                }
-            }, 300000); // Auto-save every 5 minutes
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Assessment';
+        });
+        
+        // Initialize progress bar
+        updateProgress();
+        
+        // Auto-save functionality (optional)
+        setInterval(() => {
+            const formData = new FormData(document.getElementById('assessmentForm'));
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                data[checkbox.name] = checkbox.checked.toString();
+            });
+            localStorage.setItem('prashast_draft', JSON.stringify(data));
+        }, 30000); // Auto-save every 30 seconds
+        
+        // Load draft on page load
+        window.addEventListener('load', () => {
+            const draft = localStorage.getItem('prashast_draft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = data[key] === 'true';
+                            if (element.checked) {
+                                const customCheckbox = element.nextElementSibling;
+                                customCheckbox.classList.add('checked');
+                                customCheckbox.innerHTML = '✓';
+                            }
+                        } else {
+                            element.value = data[key];
+                        }
+                    }
+                });
+                updateProgress();
+            }
         });
     </script>
 </body>
